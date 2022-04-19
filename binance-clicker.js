@@ -1,18 +1,18 @@
-let packsValue = 1,                                                         // Перемнная ввода кол-ва паков для покупки
-    buyerInterval = setInterval(buyer, 10),                                  // Старт функции покупки с интервалом опроса 1мс
+let packsValue = 1,                                                         // Змінна введення кількості паків для покупки
+    buyerInterval = setInterval(buyer, 1),                                  // Старт функції покупки з інтервалом запитів 1мс
     switcher = true,
     countInterval;
 
 
-function buyer() {                                                          // ***Окно покупки***
-    if (document.querySelector('.css-65a3ga').querySelector('button')) {    // Если есть кнопка покупки
-        const block = document.querySelector('.css-65a3ga'),                // Блок продажи
-              buyBtn = block.querySelector('.css-1gv20g8');                       // Кнопка покупки
-        countInterval = setInterval(clicker, 1);                            // Имитация нажатия кнопки +
+function buyer() {                                                          // ***Вікно покупки***
+    if (document.querySelector('.css-65a3ga').querySelector('button')) {    // Якщо є кнопка покупки
+        const block = document.querySelector('.css-65a3ga'),                // Блок продажі
+              buyBtn = block.querySelector('.css-1gv20g8');                 // Кнопка покупки
+        countInterval = setInterval(clicker, 1);                            // Імітація натискання кнопки
         if (switcher == false) {                                            
-            buyBtn.click();                                                 // Клик по кнопке покупки
-            clearInterval(buyerInterval);                                   // Остановка интервала
-            setInterval(apply, 1);                                          // Старт функции подтверждения с интервалом опроса 1мс
+            buyBtn.click();                                                 // Клік по кнопці покупки
+            clearInterval(buyerInterval);                                   // Зупинка інтервалу
+            setInterval(apply, 1);                                          // Старт функції підтвердження з інтервалом запитів 1мс
         }
     } else {
         console.log('waiting selling time');
@@ -20,20 +20,20 @@ function buyer() {                                                          // *
 }
 
 
-function apply() {                                                          // ***Окно подтверждения***
-    if (document.querySelector('.css-tg2yeu')) {                            // Если появилось окошко подтверждения 
-        const divider = document.querySelector('.css-tg2yeu'),              // Блок подтверждения
-        applyBtn = divider.querySelector('.css-1p9f32f');                   // Кнопка подтверждения
-        applyBtn.click();                                                   // Клик по кнопке подтверждения
+function apply() {                                                          // ***Вікно підтвердження***
+    if (document.querySelector('.css-tg2yeu')) {                            // Якщо з'явилося вікно підтвердження 
+        const divider = document.querySelector('.css-tg2yeu'),              // Блок підтверждення
+        applyBtn = divider.querySelector('.css-1p9f32f');                   // Кнопка підтверждення
+        applyBtn.click();                                                   // Клік по кнопці підтверждення
     } else {
         console.log('waiting apply divider');
     }
     
 }
 
-function clicker() {                                                        // ***Работа с input***
+function clicker() {                                                        // ***Работа з input***
   if (packsValue-1 != 0) {                                                
-      document.querySelector('.css-1my7wuf').nextElementSibling.click();  // Клик по кнопке +
+      document.querySelector('.css-1my7wuf').nextElementSibling.click();  // Клік по кнопці
       packsValue -= 1;
   } else {                                 
       switcher = false;
