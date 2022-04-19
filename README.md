@@ -1,55 +1,18 @@
-Скрипт нужно поместить на страницу самого сейла, желательно прям перед продажей(1-2 мин), появится окошка запроса количества паков. Каждую миллисекунду опрашивается блок продажи на нахождение кнопки покупки. Как только кнопка появилась, скрипт введет количество паков и нажмет на кнопку покупки. После чего начнется опрос страницы на появление блока подтверждения, как только появляется блок, нажимается кнопка подтверждения. Зачастую после нажатия выдаются ошибки, поэтому после первого нажатия интервал нажатия не сбрасывается. Если количество паков закончилось, закройте страницу.
+Скрипт потрібно помістити на сторінку самого сейла, бажано прямо перед продажем (1хв), після цього з'явиться віконце підтвердження. Кожну мілісекунду опитується блок продажу для знаходження кнопки покупки. Як тільки кнопка з'явилася, натисне на кнопку покупки. Після чого почнеться опитування сторінки на появу блоку підтвердження, щойно з'являється блок, натискається кнопка підтвердження.
 _Главный плюс скрипта, получить бан за него невозможно._
 
-_Как пользоваться_
-1. В скрипте имеется переменная "packsValue", замените ее значение на ваше. По дефолту 1.(Перменная в начале скрипта "let packsValue=1")
-2. Помещаете этот скрипт, через консоль разработчика на странице продажа, за пару минут до начала сейла.(Не закрывайте страницу)
-3. Ждите начала сейла.
-4. После удачной покупки или неудачной закройте или обновите страницу.
+_Як користуватися_
+1. В скрипті є змінна "packsValue", замініть її значення на ваше. По дефолту 1.(Змінна на початку скрипта "let packsValue=1")
+2. Поміщаєте цей скрипт через консоль розробника на сторінці продаж, за пару хвилин до початку сейлу. (Не закривайте сторінку)
+3. Чекайте на початок сейлу.
+4. Після вдалої покупки або невдалої закрийте або оновіть сторінку.
 
 ![Alt Text](https://media.giphy.com/media/tqT7TZQ5Fz15xQaUml/giphy.gif)
 
+Повний скрипт знаходиться в файлі binance-clicker.js
+
+
+
 Скрипт:
 
-let packsValue = 1,                                                         // Перемнная ввода кол-ва паков для покупки
-    buyerInterval = setInterval(buyer, 10),                                  // Старт функции покупки с интервалом опроса 1мс
-    switcher = true,
-    countInterval;
-
-
-function buyer() {                                                          // ***Окно покупки***
-    if (document.querySelector('.css-65a3ga').querySelector('button')) {    // Если есть кнопка покупки
-        const block = document.querySelector('.css-65a3ga'),                // Блок продажи
-              buyBtn = block.querySelector('.css-1gv20g8');                       // Кнопка покупки
-        countInterval = setInterval(clicker, 1);                            // Имитация нажатия кнопки +
-        if (switcher == false) {                                            
-            buyBtn.click();                                                 // Клик по кнопке покупки
-            clearInterval(buyerInterval);                                   // Остановка интервала
-            setInterval(apply, 1);                                          // Старт функции подтверждения с интервалом опроса 1мс
-        }
-    } else {
-        console.log('waiting selling time');
-    }
-}
-
-
-function apply() {                                                          // ***Окно подтверждения***
-    if (document.querySelector('.css-tg2yeu')) {                            // Если появилось окошко подтверждения 
-        const divider = document.querySelector('.css-tg2yeu'),              // Блок подтверждения
-        applyBtn = divider.querySelector('.css-1p9f32f');                   // Кнопка подтверждения
-        applyBtn.click();                                                   // Клик по кнопке подтверждения
-    } else {
-        console.log('waiting apply divider');
-    }
-    
-}
-
-function clicker() {                                                        // ***Работа с input***
-  if (packsValue-1 != 0) {                                                
-      document.querySelector('.css-1my7wuf').nextElementSibling.click();  // Клик по кнопке +
-      packsValue -= 1;
-  } else {                                 
-      switcher = false;
-      clearInterval(countInterval);
-  }
-}
+let packsValue=1,buyerInterval=setInterval(buyer,10),switcher=!0,countInterval;function buyer(){if(document.querySelector(".css-65a3ga").querySelector("button")){const block=document.querySelector(".css-65a3ga"),buyBtn=block.querySelector(".css-1gv20g8");countInterval=setInterval(clicker,1),0==switcher&&(buyBtn.click(),clearInterval(buyerInterval),setInterval(apply,1))}else console.log("waiting selling time")}function apply(){if(document.querySelector(".css-tg2yeu")){const divider=document.querySelector(".css-tg2yeu"),applyBtn=divider.querySelector(".css-1p9f32f");applyBtn.click()}else console.log("waiting apply divider")}function clicker(){packsValue-1!=0?(document.querySelector(".css-1my7wuf").nextElementSibling.click(),packsValue-=1):(switcher=!1,clearInterval(countInterval))}
